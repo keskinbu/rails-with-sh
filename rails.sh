@@ -54,7 +54,7 @@ clear
 wait
 echo "Please Write Your MySql Password [ENTER]:"
 read pass
-sed -i 's/your_password_here/'$pass’/g’ /home/deploy/appname/config/database.yml
+sed -i 's/your_password_here/'$pass'/g' /home/deploy/appname/config/database.yml
 RAILS_ENV=production rake db:create
 RAILS_ENV=production rake db:migrate
 RAILS_ENV=production rake assets:precompile

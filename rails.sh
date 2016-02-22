@@ -67,7 +67,6 @@ wget https://raw.githubusercontent.com/keskinbu/rails-with-sh/master/unicorn.rb
 wait
 mkdir -p shared/pids shared/sockets shared/log
 wait
-sudo vi /etc/init.d/unicorn_appname
 cd /etc/init.d/
 wget https://raw.githubusercontent.com/keskinbu/rails-with-sh/master/unicorn_appname
 wait

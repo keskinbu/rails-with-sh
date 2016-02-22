@@ -89,3 +89,8 @@ sudo rm -r /etc/nginx/sites-available/nginx.conf.rails
 wait
 sudo service nginx restart
 wait
+cd /home/deploy/appname
+wait
+clear
+wait
+bundle exec unicorn_rails -c config/unicorn.rb -E production

@@ -1,4 +1,3 @@
-#!/bin/sh
 rbenv install -v 2.2.3
 wait
 rbenv global 2.2.3
@@ -49,10 +48,45 @@ wget https://raw.githubusercontent.com/keskinbu/rails-with-sh/master/secrets.yml
 wait
 wget https://raw.githubusercontent.com/keskinbu/rails-with-sh/master/database.yml
 wait
-cd
-wait
-sudo rm -r rails.sh
-wait
 cd /home/deploy/appname
-echo 'It is DONE'
-
+wait
+clear
+wait
+echo “Please Write Your MySql Password [ENTER]:"
+read pass
+sed -i 's/your_password_here/'$pass’/g’ /home/deploy/appname/config/database.yml
+RAILS_ENV=production rake db:create
+RAILS_ENV=production rake db:migrate
+RAILS_ENV=production rake assets:precompile
+sed -i "s/# gem 'unicorn'/gem 'unicorn'/g" /home/deploy/appname/Gemfile
+bundle
+wait
+cd config
+wait
+wget https://raw.githubusercontent.com/keskinbu/rails-with-sh/master/unicorn.rb
+wait
+mkdir -p shared/pids shared/sockets shared/log
+wait
+sudo vi /etc/init.d/unicorn_appname
+cd /etc/init.d/
+wget https://raw.githubusercontent.com/keskinbu/rails-with-sh/master/unicorn_appname
+wait
+sudo chmod 755 /etc/init.d/unicorn_appname
+sudo update-rc.d unicorn_appname defaults
+wait
+cd
+sudo apt-get -y install nginx
+wait
+cd /etc/nginx/sites-available/
+wget https://raw.githubusercontent.com/keskinbu/rails-with-sh/master/nginx.conf.rails
+wait
+cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.example
+wait
+sudo rm -r /etc/nginx/sites-available/default
+wait
+cp /etc/nginx/sites-available/nginx.conf.rails /etc/nginx/sites-available/default
+wait
+sudo rm -r /etc/nginx/sites-available/nginx.conf.rails
+wait
+sudo service nginx restart
+wait

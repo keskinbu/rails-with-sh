@@ -5,3 +5,6 @@ chmod 755 install.sh
 source ~/.bash_profile
 ./rails.sh
 ```
+```
+bundle exec unicorn_rails -c config/unicorn.rb -E production
+```
